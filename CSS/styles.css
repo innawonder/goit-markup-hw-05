@@ -33,6 +33,7 @@
   --overlay-studio: rgba(47, 48, 58, 0.8);
   --timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   --overlay-portfolio: rgba(33, 150, 243, 0.9);
+  --modal-color: rgba(0, 0, 0, 0.2);
 }
 
 /* HEADER */
@@ -264,6 +265,7 @@ body {
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
   border-radius: 4px;
 }
+
 section {
   margin: 0 auto;
   padding-top: 94px;
@@ -707,8 +709,7 @@ section {
 
 .project-thumb {
   position: relative;
-  width: 100%;
-  height: 100%;
+  overflow: hidden;
 }
 
 .project-thumb::before {
@@ -718,9 +719,55 @@ section {
   width: 100%;
   height: 100%;
   background-color: var(--overlay-portfolio);
+
+  transform: translateY(100%);
+  opacity: 0;
+  transition: background-color 250ms var(--timing-function),
+    transform 250ms var(--timing-function), opacity250ms var(--timing-function);
+}
+
+.project-thumb:hover:before,
+.projects-thumb:focus::before {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.projects .description {
+  display: block;
+  position: relative;
+
+  transform: translateY(100%);
+  opacity: 0;
+  transition: transform 250ms var(--timing-function),
+    opacity 250ms var(--timing-function);
+}
+
+.projects .description:hover,
+.projects .description:focus {
+  transform: translateY(0);
+  opacity: 1;
 }
 
 .projects .text {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+
+  margin: 0;
+  padding: 63px 24px;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.56;
+  letter-spacing: 0.03em;
+  color: var(--primary-background);
+}
+
+.projects .link {
+  position: relative;
+  display: block;
+  width: 100%;
+
+  transition: box-shadow 250ms var(--timing-function);
 }
 
 .projects .link:hover,
@@ -757,4 +804,63 @@ section {
   font-size: 16px;
   line-height: 1.87;
   letter-spacing: 0.03em;
+}
+
+/* МОДАЛКА */
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--modal-color);
+
+  opacity: 1;
+  transition: opacity 250ms var(--timing-function);
+}
+
+.backdrop.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.backdrop.is-hidden .modal {
+  transform: translate(-50%, -50%);
+}
+
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  min-height: 582px;
+  min-width: 528px;
+
+  background-color: var(--primary-background);
+
+  transition: transform 250ms var(--timing-function);
+}
+
+.modal .close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 30px;
+  height: 30px;
+  margin: 0;
+  padding: 0;
+  color: var(--logo-accent-header);
+  background-color: var(--primary-background);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+}
+
+.modal .icon {
+  fill: currentColor;
+  width: 11px;
+  height: 11px;
+  align-items: center;
+  justify-content: center;
 }
