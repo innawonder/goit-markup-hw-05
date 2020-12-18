@@ -712,7 +712,7 @@ section {
   overflow: hidden;
 }
 
-.projects .description {
+.proj-description {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -729,8 +729,8 @@ section {
     opacity 250ms var(--timing-function);
 }
 
-.projects .link:hover .projects .description,
-.projects .link:focus .projects .description {
+.projects .link:hover .proj-description,
+.projects .link:focus .proj-description {
   transform: translateY(0);
   opacity: 1;
 }
